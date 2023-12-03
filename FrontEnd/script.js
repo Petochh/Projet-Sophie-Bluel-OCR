@@ -10,18 +10,20 @@ async function fetch_data() {
     throw new Error('Impossible de contacter le serveur')
 }
 
-fetch_data().then(test => console.log(test))
-
 async function article_view() {
-    const jsonData = await fetch_data();
-    const items = jsonData.items;
-    const gallery = document.querySelector('gallery');
+    const articles = await fetch_data();
+    const gallery = document.querySelector('.gallery');
 
-    items.forEach(item => {
-        const createDiv = document.createElement('div');
-        createDiv.textContent = item.title;
-
-        gallery.appendChild(createDiv);
+    articles.forEach(element => {
+        console.log(element.title);
+        let container_article = document.createElement('figure')
+        let img_article = document.createElement('img');
+        let title_article = document.createElement('figcaption');
+        title_article.innerText = element.title;
+        img_article.src = element.imageUrl;
+        container_article.appendChild(img_article);
+        container_article.appendChild(title_article);
+        gallery.append(container_article);
     });
 }
 
