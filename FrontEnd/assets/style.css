@@ -186,3 +186,29 @@ footer nav ul {
 	margin: 2em
 }
 
+.filter__gallery {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
+
+.filter__button {
+	font-size: 16px;
+	line-height: 19px;
+	font-weight: 700;
+	font-family: 'Syne';
+	color: #1D6154;
+	margin: 5px;
+	padding: 8px 20px;
+	border: solid #1D6154 1px;
+	border-radius: 60px;
+}
+
+.filter__gallery .selected {
+	background-color: #1D6154;
+	color: white;
+}
+
+.hidden {
+	display: none;
+}
