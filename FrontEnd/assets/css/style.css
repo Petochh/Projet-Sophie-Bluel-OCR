@@ -2,6 +2,7 @@
    v2.0 | 20110126
    License: none (public domain)
 */
+@import url('login.css');
 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -45,6 +46,10 @@ q:before, q:after {
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
+}
+a {
+	text-decoration: none;
+	color: inherit;
 }
 /** end reset css**/
 body {
@@ -212,3 +217,7 @@ footer nav ul {
 .hidden {
 	display: none;
 }
+
+
+
+
