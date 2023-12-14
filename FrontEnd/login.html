@@ -8,18 +8,18 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
 	<meta name="description" content="">
-	<link rel="stylesheet" href="../assets/css/style.css">
-	<script src="../assets/js/script.js" defer></script>
+	<link rel="stylesheet" href="./styles/main.css">
+	<script src="./scripts/script.js" defer></script>
 </head>
-<body class="body__login">
-<header>
-	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
-	<nav>
-		<ul>
-			<li><a href="../index.html#portfolio">projets</a></li>
-			<li><a href="../index.html#contact">contact</a></li>
-			<li><a href="#" class="loger">login</a></li>
-			<li><img src="../assets/icons/instagram.png" alt="Instagram" class="icon_insta"></li>
+<body>
+<header class="head__container">
+	<h1 class="head__container__title">Sophie Bluel <span class="head__container__title__span">Architecte d'intérieur</span></h1>
+	<nav class="head__nav">
+		<ul class="head__nav__ul">
+			<li class="head__nav__ul__li"><a href="index.html#portfolio">projets</a></li>
+			<li class="head__nav__ul__li"><a href="index.html#contact">contact</a></li>
+			<li class="head__nav__ul__li"><a href="login.html" class="loger">login</a></li>
+			<li class="head__nav__ul__li"><img src="./assets/icons/instagram.png" alt="Instagram" class="icon_insta"></li>
 		</ul>
 	</nav>
 </header>
@@ -31,7 +31,7 @@
         <input type="email" id="mail">
         <label for="passwd">Mot de passe</label>
         <input type="password" id="passwd">
-        <input type="submit" value="Se connecter" class="submit__button" onclick="test(event)">
+        <input type="submit" value="Se connecter" class="submit__button" onclick="button_log(event)">
         <a href="#">Mot de passe oublié</a>
     </form>
 </main>

@@ -7,21 +7,29 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
 	<meta name="description" content="">
-	<link rel="stylesheet" href="./assets/css/style.css">
-	<script src="./assets/js/script.js" defer>
-		create_view_articles();
-	</script>
+	<link rel="stylesheet" href="./styles/main.css">
+	<script src="./scripts/script.js" defer></script>
 </head>
 <body>
-<header>
-	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
-	<nav>
-		<ul>
-			<li><a href="#portfolio">projets</a></li>
-			<li><a href="#contact">contact</a></li>
-			<li><a href="login/login.html" class="loger">login</a></li>
-			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
+
+	<div id="modale" class="modal">
+		<div class="modal__content">
+			<span class="modal__content__close" id="closeModalBtn">&times;</span>
+			<h3 class="modal__content__title">Galerie photo</h3>
+		</div>
+	</div>
+
+
+<header class="head__container">
+	<h1 class="head__container__title">Sophie Bluel <span class="head__container__title__span">Architecte d'intérieur</span></h1>
+	<nav class="head__nav">
+		<ul class="head__nav__ul">
+			<li class="head__nav__ul__li"><a href="#portfolio">projets</a></li>
+			<li class="head__nav__ul__li"><a href="#contact">contact</a></li>
+			<li class="head__nav__ul__li"><a href="login.html" class="loger">login</a></li>
+			<li class="head__nav__ul__li"><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
 	</nav>
 </header>
@@ -38,15 +46,21 @@
 		</article>
 	</section>
 	<section id="portfolio">
+		<div class="portfolio__title">
 		<h2>Mes Projets</h2>
+		<p class="portfolio__title__modifie" id="openModalBtn"><i class="fa-regular fa-pen-to-square"></i> Modifier</p>
+		</div>
 		<div class="filter__gallery">
-
+			<!--Insertion script-->
 		</div>
 		<div class="gallery">
-			<figure class="hidden">
+			<!--Insertion script-->
+<!--
+			<figure>
 				<img src="assets/images/abajour-tahina.png" alt="Abajour Tahina">
 				<figcaption>Abajour Tahina</figcaption>
 			</figure>
+-->
 		</div>
 	</section>
 	<section id="contact">
@@ -64,7 +78,7 @@
 	</section>
 </main>
 
-<footer>
+<footer class="foot__container">
 	<nav>
 		<ul>
 			<li>Mentions Légales</li>
@@ -73,3 +87,6 @@
 </footer>
 </body>
 </html>
+
+
+
