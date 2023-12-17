@@ -17,7 +17,7 @@ const category_filter = [];
 async function create_view_filters(name, id) {
     const filter_gallery = document.querySelector('.filter__gallery');
 
-    if (!checkIfUserIsLoggedIn()) {
+    if (!checkIfUserIsLoggedIn()) { // si l'utilisateur n'est pas connecter on créer les filtre
         if (!category_filter.includes(name)) {
             let button_filter = document.createElement('p');
     
@@ -35,7 +35,7 @@ async function create_view_filters(name, id) {
                 button_filter.classList.add('selected')
             }
         }
-    }else{
+    }else{ // si l'utilisateur est connecter on ajoute bouton modifier
         let modifie_button = document.querySelector('.portfolio__title__modifie');
 
         modifie_button.style.display = 'inline-block';
@@ -82,8 +82,8 @@ async function create_view_articles(idarticle) {
             case '1':
             case '2':
             case '3':
-                if (idarticle==element.category.id) {
-                    let container_article = document.createElement('figure')
+                if (idarticle == element.category.id) {
+                    let container_article = document.createElement('figure');
                     let img_article = document.createElement('img');
                     let title_article = document.createElement('figcaption');
         
@@ -96,7 +96,7 @@ async function create_view_articles(idarticle) {
                 }
                 break;
             default:
-                let container_article = document.createElement('figure')
+                let container_article = document.createElement('figure');
                 let img_article = document.createElement('img');
                 let title_article = document.createElement('figcaption');
         
@@ -115,42 +115,29 @@ async function create_view_articles(idarticle) {
 /**** FIN Creation & Gestion articles ****/
 
 
-if (window.location.pathname === "/FrontEnd/index.html") {
+if (window.location.pathname === "/FrontEnd/index.html") { 
+    // Verifie si on est sur la page d'acceuil pour charger article
     create_view_articles();
+
+    // Ajout d'une ecoute sur le btn modifier si il est present
+    document.addEventListener('DOMContentLoaded', function() {
+        const openModalBtn = document.getElementById('openModalBtn');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const modal = document.getElementById('modale');
+    
+        openModalBtn.addEventListener('click', function() {
+            modal.style.display = 'flex';
+            createModalViewArticle();
+        });
+    
+        closeModalBtn.addEventListener('click', function() {
+            modal.style.display = 'none';
+    
+        })
+    })
 }
 
-async function button_log(event) {
-    let mail = document.querySelector('#mail');
-    let passwd = document.querySelector('#passwd');
-    const regex_mail = "/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/";
-    
-    event.preventDefault();
-    
-    if (mail.value !== "" && passwd.value !== "") {
-        try {
-            const r = await fetch('http://localhost:5678/api/users/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    email: mail.value,
-                    password: passwd.value,
-                }),
-            });
-            
-            if (r.ok) {
-                const data = await r.json();
-                localStorage.setItem('authToken', data.token);
-                document.location.href = "/FrontEnd/index.html";
-            } else {
-                console.error('Erreur de connexion:', r.status, r.statusText);
-            }
-        } catch (error) {
-            console.error('Erreur inattendue:', error);
-        }
-    }
-}
+
 
 function checkIfUserIsLoggedIn() {
     const authToken = localStorage.getItem('authToken');
@@ -166,26 +153,120 @@ function logoutUser() {
 }
 
 if (checkIfUserIsLoggedIn()) {
-    let change_etat = document.querySelector('.loger');
-    if (change_etat) {
-        change_etat.textContent = 'Logout';
-        change_etat.href = '';
-        change_etat.addEventListener('click', function(){logoutUser()})
+    let loginLogout = document.querySelector('.loger');
+    if (loginLogout) {
+        loginLogout.textContent = 'Logout';
+        loginLogout.href = '';
+        loginLogout.addEventListener('click', function(){logoutUser()})
+    }
+}
+
+/*** Gestion Modal ***/
+
+async function createModalViewArticle() {
+    const r = await fetch_data();
+    let article = document.querySelector('.modal__content__gallery');
+    let modalTitle = document.querySelector('.modal__content__title');
+
+    modalTitle.textContent = "Galerie photo";
+    article.innerHTML = '';
+    i = 0;
+
+    r.forEach(element => {
+        let container_article = document.createElement('figure');
+        let img_article = document.createElement('img');
+        let iconDelete = document.createElement('i');
+
+        img_article.src = element.imageUrl;
+        iconDelete.classList.add('fa-solid');
+        iconDelete.classList.add('fa-trash-can');
+        iconDelete.setAttribute('id', i);
+        iconDelete.addEventListener('click', function(event){console.log('Supprime element : ' + event.target.id);})
+        
+        container_article.appendChild(img_article);
+        container_article.appendChild(iconDelete);
+
+        article.append(container_article);
+        i++
+    })
+}
+
+function createModalViewAddPicture() {
+    let returnBtnModal = document.querySelector('.modal__content__btn__return');
+    let modalTitle = document.querySelector('.modal__content__title');
+    let modalContent = document.querySelector('.modal__content__gallery');
+    let createInputTitle = document.createElement('input');
+
+    modalTitle.textContent = "Ajout photo";
+    returnBtnModal.style.display = "block";
+
+}
+
+/*** Fin Gestion Modal ***/
+
+/*** Gestion de connexion ***/
+
+async function button_log(event) {
+    let mail = document.querySelector('#mail');
+    let passwd = document.querySelector('#passwd');
+    
+    event.preventDefault(); // Annule l'effet du bouton 
+    
+    if (mail.value !== "" && passwd.value !== "") {
+        if (!checkMailValide(mail.value)){
+            let errMessage = "E-mail non valide.";
+            createMsgErr(errMessage);
+        }else{
+            try {
+                const r = await fetch('http://localhost:5678/api/users/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: mail.value,
+                        password: passwd.value,
+                    }),
+                });
+                
+                if (r.ok) {
+                    const data = await r.json();
+                    localStorage.setItem('authToken', data.token);
+                    document.location.href = "/FrontEnd/index.html";
+                } else {
+                    let errMessage = "Mot de passe ou e-mail incorrect.";
+                    createMsgErr(errMessage);
+                }
+            } catch (error) {
+                console.error('Erreur inattendue:', error);
+            }
+        }
+    }else{
+        let errMessage = "Vous devez remplir tous les champs."
+        createMsgErr(errMessage);
     }
 }
 
 
-document.addEventListener('DOMContentLoaded', function() {
-    const openModalBtn = document.getElementById('openModalBtn');
-    const closeModalBtn = document.getElementById('closeModalBtn');
-    const modal = document.getElementById('modale');
+function checkMailValide(mail) {
+    const regex_mail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
-    openModalBtn.addEventListener('click', function() {
-        modal.style.display = 'flex';
-    });
+    return regex_mail.test(mail);
+}
 
-    closeModalBtn.addEventListener('click', function() {
-        modal.style.display = 'none';
+function createMsgErr(errMessage) {
+    let msgErr = document.querySelector('.error__message')
+    if(!msgErr) {
+        const formLogin = document.querySelector('form');
+        const MsgAppendAfterPass = document.getElementById('btn__submit');
+        let createMsgErr = document.createElement('p');
+        createMsgErr.classList.add('error__message');
+        createMsgErr.textContent = errMessage;
+    
+        formLogin.insertBefore(createMsgErr, MsgAppendAfterPass);
+    }else{
+        msgErr.textContent = errMessage;
+    }
+}
 
-    })
-})
+/*** Fin de Gestion de connexion ***/

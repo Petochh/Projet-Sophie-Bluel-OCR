@@ -1,9 +1,9 @@
-.head__container {
+header {
     display: flex;
 	justify-content: space-between;
 	margin: 50px 0;
 
-    &__title {
+    & h1 {
         display: flex;
         flex-direction: column;
         font-family: 'Syne';
@@ -11,7 +11,7 @@
         font-weight: 800;
         color: #B1663C;
     
-        &__span {
+        & span {
             font-family: 'Work Sans';
             font-size:10px;
             letter-spacing: 0.1em;

@@ -16,14 +16,21 @@
 
 	<div id="modale" class="modal">
 		<div class="modal__content">
-			<span class="modal__content__close" id="closeModalBtn">&times;</span>
-			<h3 class="modal__content__title">Galerie photo</h3>
+			<div class="modal__content__btn">
+				<div class="modal__content__btn__return" id="returnModalBtn"><i class="fa-solid fa-arrow-left"></i></div>
+				<div class="modal__content__btn__close" id="closeModalBtn"><i class="fa-solid fa-xmark"></i></div>
+			</div>
+			<h3 class="modal__content__title"></h3>
+			<div class="modal__content__gallery">
+
+			</div>
+			<input type="submit" value="Ajouter une photo" onclick="createModalViewAddPicture()">
 		</div>
 	</div>
 
 
-<header class="head__container">
-	<h1 class="head__container__title">Sophie Bluel <span class="head__container__title__span">Architecte d'intérieur</span></h1>
+<header>
+	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 	<nav class="head__nav">
 		<ul class="head__nav__ul">
 			<li class="head__nav__ul__li"><a href="#portfolio">projets</a></li>
@@ -47,8 +54,8 @@
 	</section>
 	<section id="portfolio">
 		<div class="portfolio__title">
-		<h2>Mes Projets</h2>
-		<p class="portfolio__title__modifie" id="openModalBtn"><i class="fa-regular fa-pen-to-square"></i> Modifier</p>
+			<h2>Mes Projets</h2>
+			<p class="portfolio__title__modifie" id="openModalBtn"><i class="fa-regular fa-pen-to-square"></i> Modifier</p>
 		</div>
 		<div class="filter__gallery">
 			<!--Insertion script-->

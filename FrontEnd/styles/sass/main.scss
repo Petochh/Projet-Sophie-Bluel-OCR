@@ -1,6 +1,7 @@
 @import "./base/reset";
 @import "./base/header_footer";
 @import "./base/login";
+@import "./base/modal";
 
 
 
@@ -170,39 +171,5 @@ h2{
         width: 180px;
         text-align: center;
         border-radius: 60px;
-    }
-}
-
-
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
-    background-color: rgba(0, 0, 0, 0.7);
-}
-
-.modal__content {
-    display: flex;
-    flex-direction: column;
-    background-color: #FFFEF8;
-    margin: auto;
-    padding: 20px;
-    border: 1px solid black;
-    width: 40%;
-    height: 60%;
-
-    &__close {
-        width: 100%;
-        justify-content: end;
-    }
-
-    &__title {
-        font-size: 26px;
-        font-weight: 400;
     }
 }

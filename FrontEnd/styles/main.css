@@ -52,12 +52,12 @@ a {
   color: inherit;
 }
 
-.head__container {
+header {
   display: flex;
   justify-content: space-between;
   margin: 50px 0;
 }
-.head__container__title {
+header h1 {
   display: flex;
   flex-direction: column;
   font-family: "Syne";
@@ -65,7 +65,7 @@ a {
   font-weight: 800;
   color: #B1663C;
 }
-.head__container__title__span {
+header h1 span {
   font-family: "Work Sans";
   font-size: 10px;
   letter-spacing: 0.1em;
@@ -144,6 +144,71 @@ input[type=submit] {
   width: 180px;
   text-align: center;
   border-radius: 60px;
+}
+
+.error__message {
+  text-align: center;
+  color: red;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal__content {
+  display: flex;
+  flex-direction: column;
+  background-color: #FFFEF8;
+  margin: auto;
+  padding: 40px;
+  border: 1px solid black;
+  width: 630px;
+  height: 690px;
+}
+.modal__content__btn {
+  display: flex;
+  justify-content: flex-end;
+}
+.modal__content__btn__return {
+  display: none;
+}
+.modal__content__title {
+  font-size: 26px;
+  font-weight: 400;
+  text-align: center;
+  margin: 20px 0 40px 0;
+}
+
+.modal__content__gallery {
+  display: flex;
+  flex-wrap: wrap;
+  height: 80%;
+}
+.modal__content__gallery figure {
+  position: relative;
+  flex-basis: 18%;
+  margin: 5px;
+}
+.modal__content__gallery figure img {
+  width: 100%;
+  height: auto;
+}
+.modal__content__gallery figure i {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 4%;
+  border-radius: 2px;
+  background-color: black;
+  color: white;
 }
 
 body {
@@ -287,35 +352,4 @@ h2 {
   width: 180px;
   text-align: center;
   border-radius: 60px;
-}
-
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-  background-color: rgba(0, 0, 0, 0.7);
-}
-
-.modal__content {
-  display: flex;
-  flex-direction: column;
-  background-color: #FFFEF8;
-  margin: auto;
-  padding: 20px;
-  border: 1px solid black;
-  width: 40%;
-  height: 60%;
-}
-.modal__content__close {
-  width: 100%;
-  justify-content: end;
-}
-.modal__content__title {
-  font-size: 26px;
-  font-weight: 400;
 }/*# sourceMappingURL=main.css.map */
