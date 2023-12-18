@@ -15,17 +15,37 @@
     flex-direction: column;
     background-color: #FFFEF8;
     margin: auto;
-    padding: 40px;
+    padding: 30px;
     border: 1px solid black;
     width: 630px;
     height: 690px;
 
     &__btn {
         display: flex;
-        justify-content: flex-end;
+        position: relative;
+        justify-content: space-between;
 
         &__return {
-            display: none;
+            // display: none;
+            position: absolute;
+            left: 0px;
+            width: 24px;
+            height: 24px;
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+
+        &__close {
+            position: absolute;
+            right: 0px;
+            width: 24px;
+            height: 24px;
+
+            &:hover {
+                cursor: pointer;
+            }
         }
 
     }
@@ -34,14 +54,16 @@
         font-size: 26px;
         font-weight: 400;
         text-align: center;
-        margin: 20px 0 40px 0;
+        margin-top: 25px;
     }
 }
 
-.modal__content__gallery {
+.modal__content__body {
+    margin: 20px 50px 20px 50px;
     display: flex;
     flex-wrap: wrap;
     height: 80%;
+    border-bottom: 1px solid #B3B3B3;
 
     & figure {
         position: relative;
@@ -49,17 +71,81 @@
         margin: 5px;
         & img {
             width: 100%;
-            height: auto;
         }
         & i {
             position: absolute;
-            top: 10px;
-            right: 10px;
+            top: 6px;
+            right: 6px;
             padding: 4%;
             border-radius: 2px;
             background-color: black;
             color: white;
+            transition: color 0.5s;
+
+            &:hover {
+                cursor: pointer;
+                color: red;
+            }
         }
     }
+
+    & form {
+        width: 100%;
+        text-align: left;
+        display: flex;
+        flex-direction: column;
+    }
+
+    & input {
+        height: 50px;
+        font-size: 1.2em;
+        border: none;
+        box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+    }
+
+    #add__category {
+        height: 50px;
+        border: none;
+        outline: none;
+        box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+    }
+
+    & label {
+        font-size: 14px;
+        font-weight: 500;
+        margin: 2em 0 1em 0;
+    }
     
+}
+
+#fileInput {
+    display: none;
+}
+
+.fileLabelInput {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #E8F1F6;
+    height: 200px;
+
+    & i {
+        color: #B9C5CC;
+        font-size: 80px;
+    }
+
+    & div {
+        font-size: 10px;
+    }
+
+    & img {
+
+        height: 100%;
+    }
+}
+
+#addModalBtn {
+    width: 237px;
+    padding: 10px;
 }

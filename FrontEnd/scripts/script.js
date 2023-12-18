@@ -9,6 +9,17 @@ async function fetch_data() {
     }
 }
 
+async function fetch_category() {
+    const r = await fetch('http://localhost:5678/api/categories',{
+        headers: {
+            "Accept": "application/json",
+        }
+    })
+    if (r.ok === true) {
+        return r.json();
+    }
+}
+
 
 /**** Creation & Gestion filtres ****/
 const category_filter = [];
@@ -122,6 +133,7 @@ if (window.location.pathname === "/FrontEnd/index.html") {
     // Ajout d'une ecoute sur le btn modifier si il est present
     document.addEventListener('DOMContentLoaded', function() {
         const openModalBtn = document.getElementById('openModalBtn');
+        const returnModalBtn = document.getElementById('returnModalBtn');
         const closeModalBtn = document.getElementById('closeModalBtn');
         const modal = document.getElementById('modale');
     
@@ -129,6 +141,10 @@ if (window.location.pathname === "/FrontEnd/index.html") {
             modal.style.display = 'flex';
             createModalViewArticle();
         });
+
+        returnModalBtn.addEventListener('click', function() {
+            createModalViewArticle();
+        })
     
         closeModalBtn.addEventListener('click', function() {
             modal.style.display = 'none';
@@ -165,11 +181,17 @@ if (checkIfUserIsLoggedIn()) {
 
 async function createModalViewArticle() {
     const r = await fetch_data();
-    let article = document.querySelector('.modal__content__gallery');
+    let modalContentBody = document.querySelector('.modal__content__body');
     let modalTitle = document.querySelector('.modal__content__title');
+    let returnModalBtn = document.querySelector('.modal__content__btn__return');
+    let submitBtnModal = document.getElementById('addModalBtn');
 
+    submitBtnModal.value = "Ajouter une photo";
+    submitBtnModal.setAttribute('onclick', 'createModalViewAddPicture()');
+    submitBtnModal.style.backgroundColor = "#1D6154";
+    returnModalBtn.style.display = 'none';
     modalTitle.textContent = "Galerie photo";
-    article.innerHTML = '';
+    modalContentBody.innerHTML = '';
     i = 0;
 
     r.forEach(element => {
@@ -186,21 +208,128 @@ async function createModalViewArticle() {
         container_article.appendChild(img_article);
         container_article.appendChild(iconDelete);
 
-        article.append(container_article);
+        modalContentBody.append(container_article);
         i++
     })
 }
 
-function createModalViewAddPicture() {
-    let returnBtnModal = document.querySelector('.modal__content__btn__return');
-    let modalTitle = document.querySelector('.modal__content__title');
-    let modalContent = document.querySelector('.modal__content__gallery');
-    let createInputTitle = document.createElement('input');
-
-    modalTitle.textContent = "Ajout photo";
-    returnBtnModal.style.display = "block";
-
+function previouImg(e){
+    let [picture] = e.files;
+    if(picture){
+        let changeImg = document.querySelector('.fileLabelInput');
+        let createImg = document.createElement('img');
+        let inputSave = document.getElementById('fileInput');
+        createImg.src = URL.createObjectURL(picture);
+        createImg.classList.add('previouInpuImg');
+        changeImg.innerHTML = '';
+        changeImg.append(createImg);
+        inputSave.disabled = true;
+        changeImg.append(inputSave);
+    }
 }
+
+async function createModalViewAddPicture() {
+    // ajout du bouton return
+    let returnBtnModal = document.querySelector('.modal__content__btn__return');
+    returnBtnModal.style.display = "block";
+    // modifie le titre de la modal
+    let modalTitle = document.querySelector('.modal__content__title');
+    modalTitle.textContent = "Ajout photo";
+    // vide le contenu de la modal
+    let modalContent = document.querySelector('.modal__content__body');
+    modalContent.innerHTML = '';
+    // modifie le contenue du bouton submit
+    let submitBtnModal = document.getElementById('addModalBtn');
+    submitBtnModal.value = "Valider";
+    submitBtnModal.setAttribute('onclick', '');
+    submitBtnModal.style.backgroundColor = "gray";
+    
+    // creation du formulaire
+    let createFormPicture = document.createElement('form');
+    // ajout de l'input pour l'image
+    let createLabelImage = document.createElement('label');
+    createLabelImage.classList.add('fileLabelInput');
+
+    let iconLabelImage = document.createElement('i');
+    iconLabelImage.classList.add('fa-regular');
+    iconLabelImage.classList.add('fa-image');
+
+    let labelBtnAdd = document.createElement('div');
+    labelBtnAdd.textContent = "+ Ajouter photo";
+
+    let labelInfoImage = document.createElement('div');
+    labelInfoImage.textContent = "jpg, png : 4mo max";
+
+    let createInputImage = document.createElement('input');
+    createInputImage.type = "file";
+    createInputImage.setAttribute('onchange', 'previouImg(this)');
+    createInputImage.setAttribute('id', "fileInput");
+    createInputImage.addEventListener('change', checkFields);
+    
+    createLabelImage.appendChild(createInputImage);
+    createLabelImage.appendChild(iconLabelImage);
+    createLabelImage.appendChild(labelBtnAdd)
+    createLabelImage.appendChild(labelInfoImage);
+
+    // ajout de l'input titre
+    let createLabelTitle = document.createElement('label');
+    createLabelTitle.textContent = "Titre";
+    createLabelTitle.setAttribute("for", "add__title");
+    
+    let createInputTitle = document.createElement('input');
+    createInputTitle.type = "text";
+    createInputTitle.setAttribute('id', "add__title");
+    createInputTitle.addEventListener('input', checkFields);
+
+    // ajout de l'input categorie
+    let createLabelCategory = document.createElement('label');
+    createLabelCategory.textContent = "Categorie";
+    createLabelCategory.setAttribute('for', "add__category");
+    
+    let createInputCategory = document.createElement('select');
+    createInputCategory.setAttribute('id', "add__category");
+    createInputCategory.name = "Categories";
+    createInputCategory.addEventListener('change', checkFields);
+    
+    let optionNul = document.createElement('option');
+    optionNul.textContent = '';
+    createInputCategory.appendChild(optionNul);
+
+    let optionsCategory = await fetch_category();
+    optionsCategory.forEach(element => {
+        let option = document.createElement('option');
+        option.value = element.name.toLowerCase().replace(/\s/g, '.');
+        option.textContent = element.name;
+        createInputCategory.appendChild(option);
+    });
+
+
+    createFormPicture.append(createLabelImage);
+    createFormPicture.append(createLabelTitle);
+    createFormPicture.append(createInputTitle);
+    createFormPicture.append(createLabelCategory);
+    createFormPicture.append(createInputCategory);
+
+    modalContent.append(createFormPicture);
+}
+
+function checkFields() {
+    let fileInput = document.getElementById('fileInput');
+    let titleInput = document.getElementById('add__title');
+    let categoryInput = document.getElementById('add__category');
+    let submitBtn = document.getElementById('addModalBtn');
+
+    var fileFilled = fileInput.files.length > 0;
+    var titleFilled = titleInput.value.trim() !== '';
+    var categoryFilled = categoryInput.value !== '';
+
+    if (fileFilled && titleFilled && categoryFilled){
+        submitBtn.style.backgroundColor = "#1D6154";
+    }else{
+        submitBtn.style.backgroundColor = "gray";
+    }
+}
+
 
 /*** Fin Gestion Modal ***/
 
@@ -228,7 +357,6 @@ async function button_log(event) {
                         password: passwd.value,
                     }),
                 });
-                
                 if (r.ok) {
                     const data = await r.json();
                     localStorage.setItem('authToken', data.token);
@@ -246,7 +374,6 @@ async function button_log(event) {
         createMsgErr(errMessage);
     }
 }
-
 
 function checkMailValide(mail) {
     const regex_mail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
