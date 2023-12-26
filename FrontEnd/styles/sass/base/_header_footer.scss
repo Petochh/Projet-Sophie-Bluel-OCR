@@ -1,7 +1,11 @@
 header {
     display: flex;
+    max-width: 1140px;
 	justify-content: space-between;
-	margin: 50px 0;
+    margin: 50px auto;
+    font-family: 'Work Sans';
+	font-size: 14px;
+
 
     & h1 {
         display: flex;
@@ -38,7 +42,8 @@ header {
     }
 }
 
-.foot__container {
+footer {
+    bottom: 0;
     width: 100%;
     height: 60px;
     background: white;
@@ -47,5 +52,5 @@ header {
 footer nav ul {
 	display: flex;
 	justify-content: flex-end;
-	margin: 2em
+    margin: 1em;
 }
