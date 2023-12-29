@@ -9,7 +9,10 @@
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./styles/main.css">
-	<script src="./scripts/script.js" defer></script>
+	<script type="module" src="./scripts/script.js" defer></script>
+	<script type="module" src="./scripts/cog/modalCog.js" defer></script>
+	<script type="module" src="./scripts/cog/authCog.js" defer></script>
+	<script type="module" src="./scripts/cog/constantsApi.js" defer></script>
 </head>
 <body>
 <header>
@@ -31,7 +34,7 @@
         <input type="email" id="mail">
         <label for="passwd">Mot de passe</label>
         <input type="password" id="passwd">
-        <input type="submit" value="Se connecter" class="submit__button" id="btn__submit" onclick="button_log(event)">
+        <input type="submit" value="Se connecter" class="submit__button" id="btn__submit">
         <a href="#">Mot de passe oublié</a>
     </form>
 </main>

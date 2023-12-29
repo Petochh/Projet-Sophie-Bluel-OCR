@@ -10,7 +10,10 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./styles/main.css">
-	<script src="./scripts/script.js" defer></script>
+	<script type="module" src="./scripts/script.js" defer></script>
+	<script type="module" src="./scripts/cog/modalCog.js" defer></script>
+	<script type="module" src="./scripts/cog/authCog.js" defer></script>
+	<script type="module" src="./scripts/cog/constantsApi.js" defer></script>
 </head>
 
 <div class="EditHeader"><i class="fa-regular fa-pen-to-square"></i>Mode édition</div>
@@ -82,7 +85,7 @@
 			<input type="email" name="email" id="email">
 			<label for="message">Message</label>
 			<textarea name="message" id="message" cols="30" rows="10"></textarea>
-			<input type="submit" value="Envoyer" id="submitBtn">
+			<input type="submit" value="Envoyer" id="submitBtnContact">
 		</form>
 	</section>
 </main>
@@ -94,6 +97,7 @@
 		</ul>
 	</nav>
 </footer>
+
 </body>
 </html>
 

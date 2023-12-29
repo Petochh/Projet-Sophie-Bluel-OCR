@@ -1,7 +1,9 @@
-@import "./base/reset";
-@import "./base/header_footer";
-@import "./base/login";
-@import "./base/modal";
+@import "./utils/_variables";
+@import "./utils/_mixins";
+@import "./base/_reset";
+@import "./base/_header_footer";
+@import "./base/_login";
+@import "./base/_modal";
 
 
 main {
@@ -15,18 +17,18 @@ body {
 	margin:auto;
 	font-family: 'Work Sans';
 	font-size: 14px;
-    background: #FFFEF8;
+    background: $background;
 }
 
 section {
-	margin: 50px 0
+	margin: 50px 0;
 }
 
 h2{
 	font-family: 'Syne';
 	font-weight: 700;
 	font-size: 30px;
-	color: #1D6154
+	color: $color-secondary;
 }
 
 /* Section #introduction */
@@ -108,7 +110,7 @@ h2{
 	justify-content: center;
 
     .selected {
-        background-color: #1D6154;
+        background-color: $color-secondary;
         color: white;
     }
 }
@@ -118,10 +120,10 @@ h2{
 	line-height: 19px;
 	font-weight: 700;
 	font-family: 'Syne';
-	color: #1D6154;
+	color: $color-secondary;
 	margin: 5px;
 	padding: 8px 20px;
-	border: solid #1D6154 1px;
+	border: solid $color-secondary 1px;
 	border-radius: 60px;
 }
 
@@ -149,13 +151,22 @@ h2{
         margin-top:30px;
         display: flex;
         flex-direction: column;
+
+        & #contactInfo {
+            margin-top: 8px;
+            text-align: center;
+        }
     }
 
     & input {
         height: 50px;
         font-size: 1.2em;
         border: none;
-        box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+        @include box-shadow;
+
+        &.error {
+            border: 2px solid red;
+        }
     }
 
     & label {
@@ -164,18 +175,11 @@ h2{
 
     & textarea {
         border: none;
-        box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+        @include box-shadow;
     }
 
     & input[type="submit"] {
-        font-family: 'Syne';
-        font-weight: 700;
-        color: white;
-        background-color: #1D6154;
-        margin : 2em auto ;
-        width: 180px;
-        text-align: center;
-        border-radius: 60px;
+        @include button;
     }
 }
 

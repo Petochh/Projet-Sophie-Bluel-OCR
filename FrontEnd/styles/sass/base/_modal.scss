@@ -12,7 +12,7 @@
 .modal__content {
     display: flex;
     flex-direction: column;
-    background-color: #FFFEF8;
+    background-color: $background;
     position: relative;
     margin: auto;
     padding: 30px;
@@ -26,7 +26,6 @@
         justify-content: space-between;
 
         &__return {
-            // display: none;
             position: absolute;
             left: 0px;
             width: 24px;
@@ -62,7 +61,6 @@
     margin: 20px 50px 20px 50px;
     display: flex;
     align-items: center;
-    justify-content: center;
     flex-wrap: wrap;
     height: 80%;
     border-bottom: 1px solid #B3B3B3;
@@ -88,7 +86,7 @@
             &:hover {
                 cursor: pointer;
                 color: black;
-                background-color: #FFFEF8;
+                background-color: $background;
             }
         }
     }
@@ -104,7 +102,7 @@
         height: 50px;
         font-size: 1.2em;
         border: none;
-        box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+        @include box-shadow;
     }
 
     #add__category {
@@ -112,7 +110,7 @@
         height: 50px;
         border: none;
         outline: none;
-        box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+        @include box-shadow;
     }
 
     & label {
@@ -123,7 +121,7 @@
     
 }
 
-#fileInput {
+#add_file {
     display: none;
 }
 
@@ -183,26 +181,25 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        background-color: #FFFEF8;
-        width: 25%;
-        height: 20%;
-        padding: 20px;
+        background-color: $background;
+        width: 35%;
+        height: 25%;
         margin: auto;
         text-align: center;
 
-        & p {
-            font-family: 'Syne';
-            font-weight: 700;
-            color: white;
-            background-color: #1D6154;
-            padding: 6px;
-            margin: 6px;
-            width: 80px;
-            text-align: center;
-            border-radius: 60px;
+        & .js_containerBtn {
+            display: flex;
+            margin-top: 10px;
 
-            &:hover{
-                cursor: pointer;
+            & p {
+                @include button;
+                padding: 6px;
+                margin: 6px;
+                width: 80px;
+    
+                &:hover{
+                    cursor: pointer;
+                }
             }
         }
     }
