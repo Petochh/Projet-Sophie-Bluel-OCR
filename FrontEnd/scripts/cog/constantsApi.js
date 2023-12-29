@@ -7,16 +7,16 @@ const USERS_LOGIN_ENDPOINT = "/users/login";
 
 export async function fetch_data() {
     try{
-        const r = await fetch(`${API_BASE_URL}${WORKS_ENDPOINT}`, {
+        const response = await fetch(`${API_BASE_URL}${WORKS_ENDPOINT}`, {
             headers: {
                 "Accept": "application/json",
             }
         });
 
-        if (r.ok){
-            return r.json();
+        if (response.ok){
+            return response.json();
         }else{
-            throw new Error(`Erreur lors de la requête : ${r.status} ${r.statusText}`);
+            throw new Error(`Erreur lors de la requête : ${response.status} ${response.statusText}`);
         }
     }catch (error){
         console.error("Une erreur s'est produite lors de la récupération des données :", error);
@@ -26,16 +26,16 @@ export async function fetch_data() {
 
 export async function fetch_category() {
     try{
-        const r = await fetch(`${API_BASE_URL}${CATEGORIES_ENDPOINT}`, {
+        const response = await fetch(`${API_BASE_URL}${CATEGORIES_ENDPOINT}`, {
             headers: {
                 "Accept": "application/json",
             }
         });
 
-        if (r.ok){
-            return r.json();
+        if (response.ok){
+            return response.json();
         }else{
-            throw new Error(`Erreur lors de la requête : ${r.status} ${r.statusText}`);
+            throw new Error(`Erreur lors de la requête : ${response.status} ${response.statusText}`);
         }
     }catch (error){
         console.error("Une erreur s'est produite lors de la récupération des catégories :", error);
@@ -45,7 +45,7 @@ export async function fetch_category() {
 
 export async function fetch_users(mail, passwd) {
     try{
-        const r = await fetch(`${API_BASE_URL}${USERS_LOGIN_ENDPOINT}`, {
+        const response = await fetch(`${API_BASE_URL}${USERS_LOGIN_ENDPOINT}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -56,8 +56,8 @@ export async function fetch_users(mail, passwd) {
             }),
         });
     
-        if (r.ok){
-            const data = await r.json();
+        if (response.ok){
+            const data = await response.json();
             localStorage.setItem('authToken', data.token);
             document.location.href = "/FrontEnd/index.html";
         }else{
@@ -71,14 +71,14 @@ export async function fetch_users(mail, passwd) {
 
 export async function fetch_delete(event) {
     try {
-        const r = await fetch(`${API_BASE_URL}${WORKS_ENDPOINT}/${event.target.id}`, {
+        const response = await fetch(`${API_BASE_URL}${WORKS_ENDPOINT}/${event.target.id}`, {
             method: 'DELETE',
             headers: {
                 'Authorization': `Bearer ${localStorage.authToken}`,
             },
         });
 
-        if (r.ok) {
+        if (response.ok) {
             let infoMessage = "Image supprimée avec succès !";
             return infoMessage;
         }
@@ -94,7 +94,7 @@ export async function fetch_add_img(fileInput, titleInput, categoriesId) {
         formData.append('title', titleInput.value);
         formData.append('category', parseInt(categoriesId));
     
-        const r = await fetch(`${API_BASE_URL}${WORKS_ENDPOINT}`, {
+        const response = await fetch(`${API_BASE_URL}${WORKS_ENDPOINT}`, {
             method: 'POST',
             body: formData,
             headers: {
@@ -102,7 +102,7 @@ export async function fetch_add_img(fileInput, titleInput, categoriesId) {
             },
         });
 
-        if (r.ok) {
+        if (response.ok) {
             let infoMessage = "Image ajouter avec succes !";
             return infoMessage;
         }
